@@ -1,0 +1,46 @@
+package DPC;
+import java.util.*;
+public class Challenge26 {
+static class Node
+{
+	int val;
+	Node left, right;
+};
+static void helper(Vector<Integer> res, Node root, int d)
+{
+	if (root == null)
+		return;
+	if (d == res.size())
+		res.add(root.val);
+	else
+		res.set(d, Math.max(res.get(d), root.val));
+	helper(res, root.left, d + 1);
+	helper(res, root.right, d + 1);
+}
+static Vector<Integer> largestValues(Node root)
+{
+	Vector<Integer> res = new Vector<>();
+	helper(res, root, 0);
+	return res;
+}
+static Node newNode(int data)
+{
+	Node temp = new Node();
+	temp.val = data;
+	temp.left = temp.right = null;
+	return temp;
+}
+public static void main(String[] args)
+{
+	Node root = null;
+	root = newNode(1);
+	root.left = newNode(2);
+	root.right = newNode(3);
+	root.left.left = newNode(4);
+	root.left.right = newNode(5);
+	//root.right.right = newNode(7);
+	Vector<Integer> res = largestValues(root);
+	for (int i = 0; i < res.size(); i++)
+			System.out.print(res.get(i)+" ");
+}
+}
